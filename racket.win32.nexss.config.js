@@ -17,7 +17,7 @@ languageConfig.compilers = {
 languageConfig.errors = require("./nexss.racket.errors");
 languageConfig.languagePackageManagers = {
   npm: {
-    installation: "PowerShell.exe -File installComposer.ps1",
+    installation: "PowerShell.exe -File installRaco.ps1",
     messageAfterInstallation: "",
     new: "raco pkg new",
     installed: "raco pkg show",

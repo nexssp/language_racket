@@ -1,6 +1,8 @@
 # Racket Help - Nexss PROGRAMMER 2.0
 
-##
+To Install Nexss Programmer please go to [Nexss Programmer CLI](https://github.com/nexssp/cli#readme) for more information.
+
+## Some examples
 
 Below Based on: <https://www.reddit.com/r/Racket/comments/778qkf/let_let_and_letrec/>
 
