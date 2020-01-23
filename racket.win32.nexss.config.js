@@ -10,7 +10,7 @@ languageConfig.compilers = {
     install: "scoop install racket",
     // Cpp does not have possibility to compile and run on the fly. We need to save it as a exe file first.
     command: "racket",
-    args: "-l errortrace -t <file>",
+    args: "-l errortrace -t <file> --",
     help: ``
   }
 };
