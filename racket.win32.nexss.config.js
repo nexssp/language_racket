@@ -2,7 +2,10 @@ let languageConfig = Object.assign({}, require("../config.win32"));
 languageConfig.title = "Racket";
 languageConfig.description =
   "Racket is a general-purpose programming language as well as the world’s first ecosystem for language-oriented programming. Make your dream language, or use one of the dozens already available.";
-languageConfig.url = "https://racket-lang.org/";
+languageConfig.url = "https://racket-lang.org";
+languageConfig.founders = ["PLT Inc."];
+languageConfig.developers = ["PLT Inc."];
+languageConfig.years = ["1995"];
 languageConfig.extensions = [".rkt"];
 languageConfig.builders = {};
 languageConfig.compilers = {
