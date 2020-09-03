@@ -1,4 +1,8 @@
-let languageConfig = Object.assign({}, require("../config.win32"));
+let languageConfig = Object.assign(
+  {},
+  require(`../config.${process.platform}`)
+);
+
 languageConfig.title = "Racket";
 languageConfig.description =
   "Racket is a general-purpose programming language as well as the world’s first ecosystem for language-oriented programming. Make your dream language, or use one of the dozens already available.";
@@ -11,11 +15,10 @@ languageConfig.builders = {};
 languageConfig.compilers = {
   racket: {
     install: "scoop install racket",
-    // Cpp does not have possibility to compile and run on the fly. We need to save it as a exe file first.
     command: "racket",
     args: "-l errortrace -t <file> --",
-    help: ``
-  }
+    help: ``,
+  },
 };
 languageConfig.errors = require("./nexss.racket.errors");
 languageConfig.languagePackageManagers = {
@@ -28,12 +31,12 @@ languageConfig.languagePackageManagers = {
     install: "raco pkg install",
     uninstall: "raco pkg remove",
     help: "raco docs",
-    version: "composer version",
+    version: "raco version",
     init: () => {},
     // if command not found in specification
     // run directly on package manager
-    else: "composer <default> <args>"
-  }
+    else: "raco <default> <args>",
+  },
 };
 
 module.exports = languageConfig;
