@@ -12,7 +12,11 @@ languageConfig.compilers = {
   },
 };
 
-const { dist, version } = require(`${process.env.NEXSS_SRC_PATH}/lib/osys`);
+const {
+  dist,
+  version,
+  replaceCommandByDist,
+} = require(`${process.env.NEXSS_SRC_PATH}/lib/osys`);
 const distName = dist();
 // TODO: Later to cleanup this config file !!
 switch (distName) {
@@ -44,6 +48,11 @@ switch (distName) {
   case "RHEL Linux":
     languageConfig.compilers.racket.install = `${sudo}yum install -y racket`;
     break;
+  default:
+    languageConfig.compilers.racket.install = replaceCommandByDist(
+      `${sudo}apt-get update -y
+${sudo}apt-get install -y racket`
+    );
 }
 
 languageConfig.dist = distName;
