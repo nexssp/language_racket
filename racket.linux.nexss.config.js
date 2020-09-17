@@ -5,7 +5,7 @@ if (process.getuid && process.getuid() === 0) {
 }
 languageConfig.compilers = {
   racket: {
-    install: `${sudo}add-apt-repository -y ppa:plt/racket && ${sudo}apt update && ${sudo}apt install -y racket`,
+    install: `${sudo}apt install -y software-properties-common && add-apt-repository -y ppa:plt/racket && ${sudo}apt update && ${sudo}apt install -y racket`,
     command: "racket",
     args: "-l errortrace -t <file> --",
     help: ``,
