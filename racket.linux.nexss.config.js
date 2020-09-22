@@ -34,7 +34,8 @@ switch (distName) {
     }
     break;
   case "Alpine Linux":
-    languageConfig.compilers.racket.install = `${sudo}apk add racket`;
+    languageConfig.compilers.racket.install = `${sudo}apk add racket --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing`;
+    languageConfig.compilers.racket.args = "-t <file> --";
     break;
   case "Arch Linux":
     languageConfig.compilers.racket.install = `${sudo}pacman -Sy --noconfirm racket`;
