@@ -1,8 +1,6 @@
 let languageConfig = Object.assign({}, require("./racket.win32.nexss.config"));
-let sudo = "sudo ";
-if (process.getuid && process.getuid() === 0) {
-  sudo = "";
-}
+let sudo = process.sudo;
+
 languageConfig.compilers = {
   racket: {
     install: `${sudo}apt install -y software-properties-common && add-apt-repository -y ppa:plt/racket && ${sudo}apt update && ${sudo}apt install -y racket`,
@@ -12,19 +10,19 @@ languageConfig.compilers = {
   },
 };
 
-const {
-  dist,
-  version,
-  replaceCommandByDist,
-} = require(`${process.env.NEXSS_SRC_PATH}/lib/osys`);
-const distName = dist();
+const distName = process.distro;
 // TODO: Later to cleanup this config file !!
 switch (distName) {
-  case "Oracle":
-  case "Oracle Linux Server":
+  case process.distros.AMAZON:
+  case process.distros.AMAZON_AMI:
+    languageConfig.compilers.racket.install = `wget https://mirror.racket-lang.org/installers/7.5/racket-7.5-x86_64-linux.sh
+${sudo}chmod +x racket-7.5-x86_64-linux.sh
+${sudo}./racket-7.5-x86_64-linux.sh`;
+    break;
+  case process.distros.ORACLE:
+    const distVersion = process.distroVersion; // *1 converts to number
     if (version) {
       //if here for older versions of nexssp
-      const distVersion = version(); // *1 converts to number
       if (distVersion >= 8) {
         // TODO: recognize the slim version
         languageConfig.compilers.racket.install = `${sudo}dnf update -y && ${sudo}dnf install -y oracle-epel-release* && ${sudo}dnf install -y racket`;
@@ -33,24 +31,24 @@ switch (distName) {
       }
     }
     break;
-  case "Alpine Linux":
+  case process.distros.ALPINE:
     languageConfig.compilers.racket.install = `${sudo}apk add racket --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing`;
     languageConfig.compilers.racket.args = "-t <file> --";
     break;
-  case "Arch Linux":
+  case process.distros.ARCH:
     languageConfig.compilers.racket.install = `${sudo}pacman -Sy --noconfirm racket`;
     break;
-  case "Fedora":
+  case process.distros.FEDORA:
     languageConfig.compilers.racket.install = `${sudo}dnf install -y racket`;
     break;
-  case "CentOS Linux":
+  case process.distros.CENTOS:
     languageConfig.compilers.racket.install = `${sudo}yum install -y epel-release* && yum install -y racket`;
     break;
-  case "RHEL Linux":
+  case process.distros.RHEL:
     languageConfig.compilers.racket.install = `${sudo}yum install -y racket`;
     break;
   default:
-    languageConfig.compilers.racket.install = replaceCommandByDist(
+    languageConfig.compilers.racket.install = process.replacePMByDistro(
       `${sudo}apt-get update -y
 ${sudo}apt-get install -y racket`
     );
