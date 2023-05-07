@@ -4,7 +4,7 @@ languageConfig.compilers = {
   racket: {
     install: "pkg install -y racket",
     command: "racket",
-    args: "-l errortrace -t <file> --",
+    args: "-t <file> --",
     help: ``,
   },
 };
